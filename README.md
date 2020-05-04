@@ -1,6 +1,6 @@
 # CorePollUI 
 
-In this sample project you manage polls by creating, voting, change voting option, signup and see the results with charts.
+In this sample project you manage polls by creating, voting, change voting option, signup and see the results on charts.
 
 Front for SpringBootPoolJWT (https://github.com/rpbs/SpringBootPoolJWT)
 
