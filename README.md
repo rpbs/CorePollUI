@@ -16,5 +16,10 @@ npm start
 
 ```
 http://localhost:3000/#/login (it may take a while on the first run)
+
+username: admin
+password: admin
 ```
-At this point one need SpringBootPoolJWT running.
+
+At this point one need SpringBootPoolJWT running so you can login.
+
