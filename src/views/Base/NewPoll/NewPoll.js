@@ -63,8 +63,9 @@ class NewPoll extends Component {
           this.state.option3, 
           this.state.option4]
       }).then((resp) => {
-
-      }).catch((err) => {
+        this.props.history.push('/base/poll');
+      }).catch(err => {
+        console.log(err);
         alert(err.message);
       });
   }

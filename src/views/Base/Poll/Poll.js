@@ -32,7 +32,7 @@ class Poll extends Component {
     
       return config;
     }, function(err) {
-      return Promise.reject(err);
+      return Promise.reject(err.message);
     }); 
   }
 
@@ -115,7 +115,7 @@ class Poll extends Component {
 
       <Row>
         <Col xs="12" md="6">
-          {this.PollsList()}
+          {!this.state.listPolls.length ? <Label>No poll created yet</Label> : this.PollsList()}
         </Col>
       </Row>
       </div>
