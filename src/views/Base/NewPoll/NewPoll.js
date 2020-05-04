@@ -8,82 +8,119 @@ import {
   Input,
   Label,
   Row,
+  Form,
+  Button
 } from 'reactstrap';
 
+import axios from 'axios';
+
 class NewPoll extends Component {
+  state = {
+    title: "",
+    description: "",
+    option1: "",
+    option2: "",
+    option3: "",
+    option4: ""
+  }
+
+  constructor(props){
+    super(props);
+    this.createNewPoll = this.createNewPoll.bind(this);
+    this.setTitle = this.setTitle.bind(this);
+    this.setDescription = this.setDescription.bind(this);
+    this.setOption1 = this.setOption1.bind(this);
+    this.setOption2 = this.setOption2.bind(this);
+    this.setOption3 = this.setOption3.bind(this);
+    this.setOption4 = this.setOption4.bind(this);
+  }
+
+  setTitle = event => {
+    this.setState({title: event.target.value});
+  }
+  setDescription = event => {
+    this.setState({description: event.target.value});
+  }
+  setOption1 = event => {
+    this.setState({option1: event.target.value});
+  }
+  setOption2 = event => {
+    this.setState({option2: event.target.value});
+  }
+  setOption3 = event => {
+    this.setState({option3: event.target.value});
+  }
+  setOption4 = event => {
+    this.setState({option4: event.target.value});
+  }
+
+  createNewPoll= () => {
+      axios.post("http://localhost:8080/pools", {
+        "title": this.state.title,
+        "description": this.state.description,
+        "options": [this.state.option1, 
+          this.state.option2, 
+          this.state.option3, 
+          this.state.option4]
+      }).then((resp) => {
+
+      }).catch((err) => {
+        alert(err.message);
+      });
+  }
+
   render() {
     return (
       <div className="animated fadeIn">
         <Row>
           <Col xs="12" sm="6">
-            <Card>
-              <CardHeader>
-                <strong>Credit Card</strong>
-                <small> Form</small>
-              </CardHeader>
-              <CardBody>
-                <Row>
-                  <Col xs="12">
+            <Form onSubmit={this.createNewPoll}>
+              <Card>
+                <CardHeader>
+                  <strong>Create new Poll</strong>
+                </CardHeader>
+                <CardBody>
+                  <Row>
+                    <Col xs="12">
+                      <FormGroup>
+                        <Label htmlFor="name">Title</Label>
+                        <Input type="text" id="name" required value={this.state.title} onChange={this.setTitle} />
+                      </FormGroup>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col xs="12">
+                      <FormGroup>
+                        <Label htmlFor="description">Description</Label>
+                        <Input type="text" id="description" required value={this.state.description} onChange={this.setDescription} />
+                      </FormGroup>
+                    </Col>
+                  </Row>
+                  <Row>
                     <FormGroup>
-                      <Label htmlFor="name">Name</Label>
-                      <Input type="text" id="name" placeholder="Enter your name" required />
-                    </FormGroup>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col xs="12">
-                    <FormGroup>
-                      <Label htmlFor="ccnumber">Credit Card Number</Label>
-                      <Input type="text" id="ccnumber" placeholder="0000 0000 0000 0000" required />
-                    </FormGroup>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col xs="4">
-                    <FormGroup>
-                      <Label htmlFor="ccmonth">Month</Label>
-                      <Input type="select" name="ccmonth" id="ccmonth">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
-                        <option value="10">10</option>
-                        <option value="11">11</option>
-                        <option value="12">12</option>
-                      </Input>
-                    </FormGroup>
-                  </Col>
-                  <Col xs="4">
-                    <FormGroup>
-                      <Label htmlFor="ccyear">Year</Label>
-                      <Input type="select" name="ccyear" id="ccyear">
-                        <option>2017</option>
-                        <option>2018</option>
-                        <option>2019</option>
-                        <option>2020</option>
-                        <option>2021</option>
-                        <option>2022</option>
-                        <option>2023</option>
-                        <option>2024</option>
-                        <option>2025</option>
-                        <option>2026</option>
-                      </Input>
-                    </FormGroup>
-                  </Col>
-                  <Col xs="4">
-                    <FormGroup>
-                      <Label htmlFor="cvv">CVV/CVC</Label>
-                      <Input type="text" id="cvv" placeholder="123" required />
-                    </FormGroup>
-                  </Col>
-                </Row>
-              </CardBody>
-            </Card>
+                      <Col xs="12">
+                        <Label>Options</Label>
+                      </Col>
+                      <Col xs="12">
+                      <FormGroup>
+                        <Input type="text" id="1" key="1" placeholder="Option 1" value={this.state.option1} onChange={this.setOption1} />
+                      </FormGroup>
+                      <FormGroup>
+                        <Input type="text" id="2" key="2"  placeholder="Option 2" value={this.state.option2} onChange={this.setOption2} />
+                      </FormGroup>
+                      <FormGroup>
+                        <Input type="text" id="3" key="3" placeholder="Option 3" value={this.state.option3} onChange={this.setOption3} />
+                      </FormGroup>
+                      <FormGroup>
+                        <Input type="text" id="4" key="4" placeholder="Option 4" value={this.state.option4} onChange={this.setOption4} />
+                      </FormGroup>
+                      </Col>
+                    </FormGroup>   
+                  </Row>
+                  <Button type="submit">Create</Button>
+                </CardBody>
+              </Card>
+            </Form>
           </Col>
         </Row>
       </div>
