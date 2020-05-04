@@ -1,0 +1,7 @@
+{
+    "name": "Create a poll",
+    "version": "0.0.0",
+    "private": true,
+    "main": "./NewPoll.js"
+  }
+  
