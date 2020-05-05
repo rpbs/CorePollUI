@@ -25,9 +25,10 @@ class Poll extends Component {
   componentWillMount(){
     axios.interceptors.request.use(function(config) {
       const token = localStorage.getItem('token');
-    
-      if ( token != null ) {
-        config.headers.Authorization = `Bearer ${token}`;
+      if (config.url.indexOf("signin") <= 0 && config.url.indexOf("signup") <= 0){
+        if ( token != null ) {
+          config.headers.Authorization = `Bearer ${token}`;
+        }
       }
     
       return config;
@@ -93,7 +94,7 @@ class Poll extends Component {
     return this.state.listPolls.map(list => {
       return <Card>
       <CardHeader>
-      <strong>{list.title}</strong><br/><label>{list.description}</label>
+      <strong>{list.title}</strong><br/><label>{list.description} - Created by {list.creator}</label>
       </CardHeader>
       <CardBody>
         <Form onSubmit={this.AwnserPoll} className="form-horizontal">                                                    

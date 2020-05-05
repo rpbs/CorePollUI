@@ -6,11 +6,13 @@ class Logout extends Component {
         super(props)
         
         var token = localStorage.getItem('token')
+
         axios.post("http://localhost:8080/users/logout?token="+token).then(() => {
             this.props.history.push('login');
         }).catch(() => {
             this.props.history.push('/');            
         });
+        
     }
 
     componentWillUnmount(){
