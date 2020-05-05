@@ -16,6 +16,10 @@ export default {
           name: 'View awnsered Polls',
           url: '/base/viewawnsered',
         },        
+        {
+          name: 'Logout',
+          url: '/logout',
+        },        
       ],
     }
   ],

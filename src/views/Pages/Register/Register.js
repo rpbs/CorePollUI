@@ -8,18 +8,25 @@ class Register extends Component {
     super(props);
     this.state = {
       username: '',
-      password: ''
+      password: '',
+      repeat: ''
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleChangePassword = this.handleChangePassword.bind(this);
+    this.handleRepeat = this.handleRepeat.bind(this);
     this.login = this.login.bind(this);
   }
 
   async login() {
+    if (this.state.password != this.state.repeat){
+      alert('Passwords fields are different');
+      return;
+    }
+
     let url = 'http://localhost:8080/users/signup';
     const result = await axios.post(url, {
       "username": this.state.username,
-      "email": "",
+      "email": this.state.username + "@" + this.state.username + ".com",
       "password": this.state.password,
       "roles": [
         "ROLE_ADMIN"
@@ -29,7 +36,7 @@ class Register extends Component {
     });
     if (result){
       localStorage.setItem('token', result.data);    
-      this.props.history.push('/charts');
+      this.props.history.push('/base/poll');
     }
   }
 
@@ -39,6 +46,10 @@ class Register extends Component {
 
   handleChangePassword = event => {
     this.setState({password: event.target.value});
+  }
+
+  handleRepeat = event => {
+    this.setState({repeat: event.target.value});
   }
 
   render() {
@@ -58,7 +69,7 @@ class Register extends Component {
                           <i className="icon-user"></i>
                         </InputGroupText>
                       </InputGroupAddon>
-                      <Input type="text" placeholder="Username" autoComplete="username" value={this.state.username} onChange={this.handleChange} />
+                      <Input type="text" placeholder="Username" autoComplete="username" value={this.state.username} onChange={this.handleChange} required minLength="4" />
                     </InputGroup>                    
                     <InputGroup className="mb-3">
                       <InputGroupAddon addonType="prepend">
@@ -66,7 +77,7 @@ class Register extends Component {
                           <i className="icon-lock"></i>
                         </InputGroupText>
                       </InputGroupAddon>
-                      <Input type="password" placeholder="Password" autoComplete="new-password" value={this.state.password} onChange={this.handleChangePassword} />
+                      <Input type="password" placeholder="Password" autoComplete="new-password" value={this.state.password} onChange={this.handleChangePassword} required />
                     </InputGroup>
                     <InputGroup className="mb-4">
                       <InputGroupAddon addonType="prepend">
@@ -74,7 +85,7 @@ class Register extends Component {
                           <i className="icon-lock"></i>
                         </InputGroupText>
                       </InputGroupAddon>
-                      <Input type="password" placeholder="Repeat password" autoComplete="new-password" />
+                      <Input type="password" placeholder="Repeat password" autoComplete="new-password" value={this.state.repeat} onChange={this.handleRepeat} required />
                     </InputGroup>
                     <Button color="success" block>Create Account</Button>
                   </Form>
