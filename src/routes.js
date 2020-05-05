@@ -3,7 +3,7 @@ import React from 'react';
 const Poll = React.lazy(() => import('./views/Base/Poll'));
 const NewPoll = React.lazy(() => import('./views/Base/NewPoll'));
 const ViewAwnsered = React.lazy(() => import('./views/Base/ViewAwnsered'));
-const Logout = React.lazy(() => import('./views/Pages/Logout/Logout'));
+const Logout = React.lazy(() => import('./views/Pages/Logout/'));
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
